@@ -7,7 +7,7 @@ const HealthRoutes = require('./routes/health');
 const IndexRoutes = require('./routes/index')
 const app = express();
 
-const { config } = require('./config');
+const config = require('./config');
 
 app.use(logger('dev'));
 app.use(express.json());
