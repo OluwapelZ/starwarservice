@@ -1,18 +1,13 @@
-const dbConfig = {
+let config = require('./config/index')
+
+let dbConfig = {
     client: 'mysql',
-    connection: {
-        host: config.mysql.host,
-        port: config.mysql.port,
-        user: config.mysql.user,
-        password: config.mysql.password,
-        database: config.mysql.database,
-        charset: 'utf8'
-    },
-    seeds: {
-        directory: './seeds'
+    connection: config.mysql,
+    migrations: {
+        tableName: 'knex_migrations'
     }
 }
 
 module.exports = {
-    dbConfig
-}
+    development: dbConfig
+};
