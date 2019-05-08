@@ -1,0 +1,5 @@
+# ignore all ./bin/data files
+./bin/data
+
+# ignore the package-lock.json file
+./package-lock.json
