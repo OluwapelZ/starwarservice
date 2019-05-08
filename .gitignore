@@ -1,5 +1,8 @@
 # ignore all ./bin/data files
-./bin/data
+bin/data/
+
+# ignore node_modules
+node_modules/
 
 # ignore the package-lock.json file
 ./package-lock.json
