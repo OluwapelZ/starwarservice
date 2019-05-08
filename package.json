@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
-    "lint": "eslint src/js",
-    "migrate": "NODE_PATH=. knex migrate:latest",
-    "seed": "NODE_PATH=. knex seed:run",
-    "dev": "node index.js"
+    "lint": "eslint src/js"
   },
   "repository": {
     "type": "git",

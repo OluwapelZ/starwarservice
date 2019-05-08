@@ -1,10 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
-const { ResponseMessages } = require('./constants/ResponseMessages');
+const ResponseMessages = require('./constants/ResponseMessages').default;
 const logger = require('morgan');
 const HealthRoutes = require('./routes/health');
-const IndexRoutes = require('./routes/index')
 const app = express();
 
 const { config } = require('./config');
@@ -23,7 +22,6 @@ app.use(bodyParser.json(), bodyParser.urlencoded({ extended: false }));
  * App routes
  */
 app.use('/', HealthRoutes);
-app.use('/', IndexRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
