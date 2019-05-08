@@ -4,6 +4,7 @@
   "description": "A service that extends star war movies apis from swapi.co",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
     "lint": "eslint src/js",
     "migrate": "NODE_PATH=. knex migrate:latest",
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/OluwapelZ/starwarservice#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.19.0",
     "bookshelf": "^0.14.2",
     "custom-error-generator": "^7.0.0",
