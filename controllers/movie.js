@@ -13,7 +13,7 @@ const fetchAll = (req, res) => {
 };
 
 const addComment = (req, res) => {
-    const data = {
+    let data = {
         movieId: req.body.movie_id,
         comment: req.body.comment,
         utcDate: dateToUTC(),
@@ -33,7 +33,11 @@ const addComment = (req, res) => {
 };
 
 const fetchMovieComments = (req, res) => {
-    const movieId = req.params.movie_id;
+    var movieId = req.params.movie_id;
+
+    if (movieId.length >= 500) {
+        return sendError(res, 400);
+    }
 
     const response = retrieveMovieComments(movieId);
 
