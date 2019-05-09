@@ -1,7 +1,7 @@
 const config = {
     environment: process.env.NODE_ENV,
     webserver: {
-        port: process.env.PORT || '8000'
+        port: process.env.PORT || '80'
     },
     mysql: {
         connections: {

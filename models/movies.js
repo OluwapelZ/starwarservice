@@ -5,10 +5,6 @@ const db = require('../config/db');
  */
 const Movie = db.bookshelf.Model.extend({
     tableName: 'movie',
-
-    fetchAllMovies: function() {
-        return this.fetchAll({require: true});
-    }
 });
 
 module.exports = Movie;
