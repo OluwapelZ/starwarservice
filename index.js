@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
-const { ResponseMessages } = require('./constants/ResponseMessages');
+const ResponseMessages = require('./constants/ResponseMessages');
 const logger = require('morgan');
 const HealthRoutes = require('./routes/health');
 const IndexRoutes = require('./routes/index')

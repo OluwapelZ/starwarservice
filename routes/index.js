@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
-var { fetchAll, addComment, fetchMovieComments } = require('../controllers/movie')
+var movie = require('../controllers/movie')
 
 /**
  * App routes
  */
-router.get('/movies', fetchAll); //Fetch moview
-router.get('/movies/:movie_id/comments', fetchMovieComments) //Fetch movie comments
-router.post('/movie/comment', addComment) //Add a comment to movie
+router.get('/movies', movie.fetchAll); //Fetch moview
+router.get('/movies/:movie_id/comments', movie.fetchMovieComments) //Fetch movie comments
+router.post('/movie/comment', movie.addComment) //Add a comment to movie
 
 module.exports = router;
