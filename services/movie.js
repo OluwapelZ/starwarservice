@@ -1,13 +1,65 @@
 'use strict';
 const Comment = require('../models/comment');
 const Movie = require('../models/movies');
+const axios = require('axios');
+const util = require('util')
 
 class MovieService {
+
+    fetchRemoteFilms () {
+        axios.get('https://swapi.co/api/films/')
+            .then((response) => {
+                const moviesArray = response.data.results;
+
+                const responseArray = [];
+                moviesArray.forEach(element => {
+                    const count = this.getCommentCountByTitle(element.title)
+                        .then((response) => {
+                            return response;
+                        })
+                        .catch((error) => {
+                            return error;
+                        });
+                    console.log('Data: ' + console.log(count));
+                    let obj = {
+                        title: element.title,
+                        opening_crawl: element.opening_crawl,
+                        release_date: element.release_date,
+                        comment_count: count
+                    }
+                    responseArray.push(obj);
+                });
+
+                //sort films by date
+                responseArray.sort(function(o1,o2){
+                    if (sort_o1_before_o2)    return -1;
+                    else if(sort_o1_after_o2) return  1;
+                    else                      return  0;
+                });
+
+                return responseArray;
+            })
+            .catch((error) => {
+                throw error;
+                console.log(util.inspect(error));
+            })
+    }
 
     getAllMovies ()  {
         return Movie.fetchAll({require: true})
             .then((movies) => {
                 return JSON.parse(movies);
+            })
+            .catch((error) => {
+                throw JSON.stringify(error);
+            })
+    }
+
+    fetchMovieById (movieId) {
+        return Movie.where({movie_id: movieId}).fetch()
+            .then((movie) => {
+                if (movie)
+                    return movie
             })
             .catch((error) => {
                 throw JSON.stringify(error);
@@ -40,6 +92,22 @@ class MovieService {
             .catch((error) => {
                 throw JSON.stringify(error);
             })
+    }
+
+    async getCommentCountByTitle (title) {
+        const movieId = await Movie.where('title', title).fetch();
+
+        return new Promise((resolve, reject) => {
+            Comment.where({movie_id: movieId.id}).count('comment')
+            .then((count) => {
+                if (count)
+                resolve(count);
+            })
+            .catch((error) => {
+                reject(error);
+                throw JSON.stringify(error);
+            })
+        })
     }
 
 }

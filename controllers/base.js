@@ -1,19 +1,20 @@
-const Constants = require('../constants/constants');
-const ResponseMessages = require('../constants/ResponseMessages');
-
-const sendSuccess = (res, data) => {
-    let resp = {status: 'success'};
-
-    if (data || data === [] || data === {})
-        resp.data = data;
+const sendSuccess = (res, message, data) => {
+    let resp = {
+        status: 'success',
+        message: (message) ? message : '',
+        data: (data) ? data : null
+    };
 
     statusCode = 200;
     
     return res.status(statusCode).json(resp);
 }
 
-const sendError = (res, status) => {
-    let resp = {status: 'fail'};
+const sendError = (res, message, status) => {
+    let resp = {
+        status: 'fail',
+        message: (message) ? message : ''
+    };
 
     statusCode = status ? status : 500;
 

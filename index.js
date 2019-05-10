@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const createError = require('http-errors');
-const ResponseMessages = require('./constants/ResponseMessages');
+const getMapping = require('./constants');
 const logger = require('morgan');
 const HealthRoutes = require('./routes/health');
 const IndexRoutes = require('./routes/index')
@@ -40,7 +40,7 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.json({
         status: false,
-        message: ResponseMessages.METHOD_NOT_IMPLEMENTED
+        message: getMapping("METHOD_NOT_IMPLEMENTED")
     });
   });
 
