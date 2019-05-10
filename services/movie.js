@@ -2,12 +2,13 @@
 const Comment = require('../models/comment');
 const Movie = require('../models/movies');
 const axios = require('axios');
-const util = require('util')
+const util = require('util');
+const config = require('../config/index');
 
 class MovieService {
 
     fetchRemoteFilms () {
-        axios.get('https://swapi.co/api/films/')
+        axios.get("https://swapi.co/api/films/")
             .then((response) => {
                 const moviesArray = response.data.results;
 
@@ -20,20 +21,20 @@ class MovieService {
                         .catch((error) => {
                             return error;
                         });
-                    console.log('Data: ' + console.log(count));
-                    let obj = {
-                        title: element.title,
-                        opening_crawl: element.opening_crawl,
-                        release_date: element.release_date,
-                        comment_count: count
-                    }
-                    responseArray.push(obj);
+
+                        let obj = {
+                            title: element.title,
+                            opening_crawl: element.opening_crawl,
+                            release_date: element.release_date,
+                            comment_count: count
+                        }
+                        responseArray.push(obj);
                 });
 
                 //sort films by date
                 responseArray.sort(function(o1,o2){
-                    if (sort_o1_before_o2)    return -1;
-                    else if(sort_o1_after_o2) return  1;
+                    if (o1)    return -1;
+                    else if(o2) return  1;
                     else                      return  0;
                 });
 
@@ -41,8 +42,7 @@ class MovieService {
             })
             .catch((error) => {
                 throw error;
-                console.log(util.inspect(error));
-            })
+            });
     }
 
     getAllMovies ()  {

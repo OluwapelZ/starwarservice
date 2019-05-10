@@ -2,21 +2,24 @@
 const { sendSuccess, sendError } = require('./base');
 const MovieService = require('../services/movie');
 const utils = require('../utils/index');
-const getMapping = require('../constants');
+const getMapping = require('../constants/index');
 
 class Movie {
 
     fetchMovies (req, res) {
-        MovieService.fetchRemoteFilms()
-        .then((resp) => {
-            if (resp) {
+        const response = MovieService.fetchRemoteFilms()
+            .then((resp) => {
+                return resp;
+            })
+            .catch((error) => {
+                throw error;
+            });
+
+            if (response) {
                 return sendSuccess(res, getMapping("FETCH_MOVIE_SUCCESS"), resp);
             }
+            
             return sendError(res, getMapping("FETCH_MOVIE_ERROR"), 500); 
-        })
-        .catch((error) => {
-            throw error;
-        });
     }
 
     listCharacters(req, res) {
@@ -85,7 +88,7 @@ class Movie {
         var movieId = req.params.movie_id;
 
         //Check if movie exists
-       const isMovieId = MovieService.fetchMovieById(data.movieId);
+       const isMovieId = MovieService.fetchMovieById(movieId);
        if(!isMovieId) {
            return sendError(res, getMapping("MOVIE_NOT_FOUND"), 404);
        }
