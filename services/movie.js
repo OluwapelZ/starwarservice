@@ -35,7 +35,7 @@ class MovieService {
                 responseArray.sort(function(o1,o2){
                     if (o1)    return -1;
                     else if(o2) return  1;
-                    else                      return  0;
+                    else return  0;
                 });
 
                 return responseArray;
